@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+# This is a comment.  Javascript doesn't allow comments.
 
 enum PlayerStates {DEFAULT, HOOKED}
 enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER}
