@@ -12,6 +12,11 @@ const PLAYER_HOOK_SPEED := 600.0
 const MAX_JUMPS := 1
 const ACCELERATION := 1_500.0
 
+@export var move_right_action := "player1_right"
+@export var move_left_action := "player1_left"
+@export var move_down_action := "player1_down"
+@export var move_up_action := "player1_up"
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -24,8 +29,18 @@ var jumps := 0
 @onready var hook_shape := $Hook/CollisionShape2D
 @onready var line := $Line2D
 
+func get_input():
+	var input_direction = Input.get_vector(move_left_action, 
+											move_right_action, 
+											move_up_action,
+											move_down_action)
+	velocity = input_direction * SPEED
 
 func _physics_process(delta: float) -> void:
+	get_input()
+	move_and_slide()
+	
+	"""
 	if is_on_floor():
 		jumps = 0
 		
@@ -36,13 +51,13 @@ func _physics_process(delta: float) -> void:
 				velocity.y += gravity * delta
 
 			# Handle Jump.
-			if Input.is_action_just_pressed("ui_up") and jumps < MAX_JUMPS:
+			if Input.is_action_just_pressed(move_up_action) and jumps < MAX_JUMPS:
 				velocity.y = JUMP_VELOCITY
 				jumps += 1
 
 			# Get the input direction and handle the movement/deceleration.
 			# As good practice, you should replace UI actions with custom gameplay actions.
-			var direction := Input.get_axis("ui_left", "ui_right")
+			var direction := Input.get_axis(move_left_action, move_right_action)
 			velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
 
 			move_and_slide()
@@ -55,10 +70,10 @@ func _physics_process(delta: float) -> void:
 				global_position = hook.global_position
 				player_state = PlayerStates.DEFAULT
 				hide_hook()
-			if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+			if Input.is_action_pressed(move_left_action) or Input.is_action_pressed(move_right_action):
 				player_state = PlayerStates.DEFAULT
 				hook_state = HookStates.RETRACT_TO_PLAYER
-			if Input.is_action_pressed("ui_up"):
+			if Input.is_action_pressed(move_up_action):
 				if jumps < MAX_JUMPS:
 					velocity.y = JUMP_VELOCITY
 					jumps += 1
@@ -78,8 +93,8 @@ func _physics_process(delta: float) -> void:
 				
 	if hook.visible:
 		line.points[1] = to_local(hook.global_position)
-
-
+"""
+"""
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click") and hook_state == HookStates.NONE:
 		hook.global_position = global_position
@@ -101,3 +116,4 @@ func hide_hook() -> void:
 	hook.hide()
 	line.hide()
 	hook_shape.set_disabled.call_deferred(true)
+"""
