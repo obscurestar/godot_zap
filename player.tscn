@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cnkymdvf1jvvu"]
+[gd_scene load_steps=19 format=3 uid="uid://bbulo0u4io7rw"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_3cqgd"]
+[ext_resource type="Script" path="res://player1.gd" id="1_swrll"]
 [ext_resource type="Texture2D" uid="uid://t1kg4jdqlhki" path="res://res/animations/dragon_girl.png" id="2_rht2r"]
+[ext_resource type="Script" path="res://player2.gd" id="3_sm2vo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bybn"]
 atlas = ExtResource("2_rht2r")
@@ -101,31 +102,32 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljykm"]
 size = Vector2(16, 16)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Node" type="Node"]
+
+[node name="Player1" type="CharacterBody2D" parent="."]
 collision_layer = 2
-script = ExtResource("1_3cqgd")
+motion_mode = 1
+script = ExtResource("1_swrll")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player1"]
 sprite_frames = SubResource("SpriteFrames_qhv6n")
 animation = &"parade"
 frame_progress = 0.486381
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1"]
 shape = SubResource("RectangleShape2D_30b8p")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="Line2D" type="Line2D" parent="Player1"]
 visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 default_color = Color(0, 0, 1, 1)
 
-[node name="Hook" type="Area2D" parent="."]
+[node name="Hook" type="Area2D" parent="Player1"]
 visible = false
 top_level = true
 
-[node name="ColorRect" type="ColorRect" parent="Hook"]
+[node name="ColorRect" type="ColorRect" parent="Player1/Hook"]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
@@ -133,11 +135,22 @@ offset_bottom = 8.0
 mouse_filter = 2
 color = Color(0, 1, 1, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hook"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/Hook"]
 shape = SubResource("RectangleShape2D_ljykm")
 disabled = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Player1"]
 position_smoothing_enabled = true
 
-[connection signal="body_entered" from="Hook" to="." method="_on_hook_body_entered"]
+[node name="Player2" type="CharacterBody2D" parent="."]
+script = ExtResource("3_sm2vo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2"]
+sprite_frames = SubResource("SpriteFrames_qhv6n")
+animation = &"parade"
+frame_progress = 0.486381
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+shape = SubResource("RectangleShape2D_30b8p")
+
+[connection signal="body_entered" from="Player1/Hook" to="Player1" method="_on_hook_body_entered"]
