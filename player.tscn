@@ -91,7 +91,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lfl81")
 }],
-"loop": true,
+"loop": false,
 "name": &"parade",
 "speed": 5.0
 }]
@@ -103,11 +103,13 @@ size = Vector2(128, 128)
 size = Vector2(16, 16)
 
 [node name="Node" type="Node"]
+metadata/TESTING = true
 
 [node name="Player1" type="CharacterBody2D" parent="."]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_swrll")
+metadata/player_num = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player1"]
 sprite_frames = SubResource("SpriteFrames_qhv6n")
@@ -144,6 +146,7 @@ position_smoothing_enabled = true
 
 [node name="Player2" type="CharacterBody2D" parent="."]
 script = ExtResource("3_sm2vo")
+metadata/player_num = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2"]
 sprite_frames = SubResource("SpriteFrames_qhv6n")

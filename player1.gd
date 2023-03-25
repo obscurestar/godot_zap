@@ -1,119 +1,46 @@
 extends CharacterBody2D
-# This is a comment.  Javascript doesn't allow comments.
-
-enum PlayerStates {DEFAULT, HOOKED}
-enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER}
 
 const SPEED := 400.0
-const JUMP_VELOCITY := -600.0
-const HOOK_MAX_LENGTH := 600.0
-const HOOK_SPEED := 800.0
-const PLAYER_HOOK_SPEED := 600.0
-const MAX_JUMPS := 1
-const ACCELERATION := 1_500.0
 
-@export var move_right_action := "player1_right"
-@export var move_left_action := "player1_left"
-@export var move_down_action := "player1_down"
-@export var move_up_action := "player1_up"
+var player_num := 1
+var action_move_right := "player1_right"
+var action_move_left := "player1_left"
+var action_move_down := "player1_down"
+var action_move_up := "player1_up"
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+# func _init():  //SET ONLY DON'T READ use _ready()
 
-var hook_direction: Vector2
-var player_state: PlayerStates = PlayerStates.DEFAULT
-var hook_state: HookStates = HookStates.NONE
-var jumps := 0
+func _ready():
+	#Do stuff once the object is fully loaded.
+	
+	#Pull the player number from the object's metadata and use it to define control inputs.
+	if self.has_meta("player_num"):
+		var player_num = self.get_meta("player_num")
+		var prefix = "player" + str(player_num)
+		self.action_move_right = prefix + "_right"
+		self.action_move_left = prefix + "_left"
+		self.action_move_up = prefix + "_up"
+		self.action_move_down = prefix + "_down"
+		
+		print("Settings set to " + self.action_move_right + " " + self.action_move_left)
+		
 
-@onready var hook := $Hook
-@onready var hook_shape := $Hook/CollisionShape2D
-@onready var line := $Line2D
 
 func get_input():
-	var input_direction = Input.get_vector(move_left_action, 
-											move_right_action, 
-											move_up_action,
-											move_down_action)
+	var input_direction = Input.get_vector(action_move_left, 
+											action_move_right, 
+											action_move_up,
+											action_move_down)
 	velocity = input_direction * SPEED
 
 func _physics_process(delta: float) -> void:
 	get_input()
 	move_and_slide()
-	
-	"""
-	if is_on_floor():
-		jumps = 0
-		
-	match player_state:
-		PlayerStates.DEFAULT:
-			# Add the gravity.
-			if not is_on_floor():
-				velocity.y += gravity * delta
 
-			# Handle Jump.
-			if Input.is_action_just_pressed(move_up_action) and jumps < MAX_JUMPS:
-				velocity.y = JUMP_VELOCITY
-				jumps += 1
+@onready var _animated_sprite = $AnimatedSprite2D
 
-			# Get the input direction and handle the movement/deceleration.
-			# As good practice, you should replace UI actions with custom gameplay actions.
-			var direction := Input.get_axis(move_left_action, move_right_action)
-			velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
-
-			move_and_slide()
-		PlayerStates.HOOKED:
-			var collision := move_and_collide(velocity * delta)
-			if collision:
-				player_state = PlayerStates.DEFAULT
-				hide_hook()
-			elif global_position.distance_to(hook.global_position) <= PLAYER_HOOK_SPEED * delta:
-				global_position = hook.global_position
-				player_state = PlayerStates.DEFAULT
-				hide_hook()
-			if Input.is_action_pressed(move_left_action) or Input.is_action_pressed(move_right_action):
-				player_state = PlayerStates.DEFAULT
-				hook_state = HookStates.RETRACT_TO_PLAYER
-			if Input.is_action_pressed(move_up_action):
-				if jumps < MAX_JUMPS:
-					velocity.y = JUMP_VELOCITY
-					jumps += 1
-				player_state = PlayerStates.DEFAULT
-				hook_state = HookStates.RETRACT_TO_PLAYER
-	match hook_state:
-		HookStates.EXTEND:
-			hook.global_position += hook_direction * HOOK_SPEED * delta
-			if hook.global_position.distance_to(global_position) >= HOOK_MAX_LENGTH:
-				hook_state = HookStates.RETRACT_TO_PLAYER
-				hook_shape.set_disabled.call_deferred(true)
-		HookStates.RETRACT_TO_PLAYER:
-			hook.global_position += hook.global_position.direction_to(global_position) * HOOK_SPEED * delta
-			if hook.global_position.distance_to(global_position) <= HOOK_SPEED * delta:
-				hook_state = HookStates.NONE
-				hide_hook()
-				
-	if hook.visible:
-		line.points[1] = to_local(hook.global_position)
-"""
-"""
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("click") and hook_state == HookStates.NONE:
-		hook.global_position = global_position
-		hook_state = HookStates.EXTEND
-		hook_direction = get_local_mouse_position().normalized()
-		hook.show()
-		line.show()
-		hook_shape.disabled = false
-
-
-func _on_hook_body_entered(_body: Node2D) -> void:
-	player_state = PlayerStates.HOOKED
-	velocity = global_position.direction_to(hook.global_position) * PLAYER_HOOK_SPEED
-	hook_state = HookStates.NONE
-	hook_shape.set_disabled.call_deferred(true)
-
-
-func hide_hook() -> void:
-	hook.hide()
-	line.hide()
-	hook_shape.set_disabled.call_deferred(true)
-"""
+func _process(_delta):
+	if Input.is_action_pressed(action_move_right):
+		_animated_sprite.play("run")
+	else:
+		_animated_sprite.stop()
