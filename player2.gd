@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED := 400.0
+const SPEED := 40.0
 
 var player_num := 1
 var action_move_right := "player1_right"
@@ -25,6 +25,7 @@ func _ready():
 		print("Settings set to " + self.action_move_right + " " + self.action_move_left)
 		
 
+@onready var _animated_sprite = $AnimatedSprite2D
 
 func get_input():
 	var input_direction = Input.get_vector(action_move_left, 
@@ -37,10 +38,20 @@ func _physics_process(delta: float) -> void:
 	get_input()
 	move_and_slide()
 
-@onready var _animated_sprite = $AnimatedSprite2D
-
 func _process(_delta):
 	if Input.is_action_pressed(action_move_right):
-		_animated_sprite.play("run")
+		_animated_sprite.play("march-right")
+#		'advance' is in the tutorial but 
+#		"Invalid call. Nonexistent function 'advance' in base 'AnimatedSprite2D'."
+#		Need to switch to 'animation_player' from 'animated_sprite'
+#		_animated_sprite.advance(0)
+	elif Input.is_action_pressed(action_move_left):
+		_animated_sprite.play("march-left")
+	elif Input.is_action_pressed(action_move_up):
+		_animated_sprite.play("march-up")
+	elif Input.is_action_pressed(action_move_down):
+		_animated_sprite.play("march-down")
 	else:
-		_animated_sprite.stop()
+#		This is supposed to stop the animation, but it seems to end it permanently.		
+#		_animated_sprite.stop()
+		_animated_sprite.play("parade")

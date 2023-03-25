@@ -14,7 +14,6 @@ size = Vector2(600, 20)
 [node name="Test" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_xapsu")]
-metadata/tacos = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(576, 648)
