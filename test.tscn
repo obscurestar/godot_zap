@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://yqnil3qrta3x"]
 
-[ext_resource type="PackedScene" uid="uid://cnkymdvf1jvvu" path="res://player.tscn" id="1_xapsu"]
+[ext_resource type="PackedScene" uid="uid://bbulo0u4io7rw" path="res://player.tscn" id="1_xapsu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_70w3a"]
 size = Vector2(5000, 20)
@@ -14,7 +14,6 @@ size = Vector2(600, 20)
 [node name="Test" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_xapsu")]
-position = Vector2(576, 584)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(576, 648)
