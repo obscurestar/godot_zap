@@ -40,18 +40,18 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta):
 	if Input.is_action_pressed(action_move_right):
-		_animated_sprite.play("march-right")
+		_animated_sprite.play("drgn-right")
 #		'advance' is in the tutorial but 
 #		"Invalid call. Nonexistent function 'advance' in base 'AnimatedSprite2D'."
 #		Need to switch to 'animation_player' from 'animated_sprite'
 #		_animated_sprite.advance(0)
 	elif Input.is_action_pressed(action_move_left):
-		_animated_sprite.play("march-left")
+		_animated_sprite.play("drgn-left")
 	elif Input.is_action_pressed(action_move_up):
-		_animated_sprite.play("march-up")
+		_animated_sprite.play("drgn-up")
 	elif Input.is_action_pressed(action_move_down):
-		_animated_sprite.play("march-down")
+		_animated_sprite.play("drgn-down")
 	else:
 #		This is supposed to stop the animation, but it seems to end it permanently.		
 #		_animated_sprite.stop()
-		_animated_sprite.play("parade")
+		_animated_sprite.play("drgn-parade")
