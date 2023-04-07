@@ -5,8 +5,8 @@ const ZAP_SPEED := 60.0
 const ZAP_RANGE := 600.0
 const ZAP_RECHARGE_TIME := 0.5  #seconds
 
-@onready var zap := $Hook
-@onready var zap_shape := $Hook/CollisionShape2D
+@onready var zap := $Zap
+@onready var zap_shape := $Zap/CollisionShape2D
 
 #For now limit zaps to 1 zap at a time and have a recharge time for them
 enum ZapStates {NONE, ZAPPING, RECHARGE}

@@ -1061,10 +1061,10 @@ points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 default_color = Color(0, 0, 1, 1)
 
-[node name="Hook" type="Area2D" parent="Player1"]
+[node name="Zap" type="Area2D" parent="Player1"]
 top_level = true
 
-[node name="ColorRect" type="ColorRect" parent="Player1/Hook"]
+[node name="ColorRect" type="ColorRect" parent="Player1/Zap"]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
@@ -1072,7 +1072,7 @@ offset_bottom = 8.0
 mouse_filter = 2
 color = Color(0, 1, 1, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/Hook"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/Zap"]
 shape = SubResource("RectangleShape2D_ljykm")
 disabled = true
 
@@ -1093,4 +1093,20 @@ animation = &"snek-up"
 position = Vector2(-1, 8.375)
 shape = SubResource("RectangleShape2D_30b8p")
 
-[connection signal="body_entered" from="Player1/Hook" to="Player1" method="_on_hook_body_entered"]
+[node name="Zap" type="Area2D" parent="Player2"]
+top_level = true
+
+[node name="ColorRect" type="ColorRect" parent="Player2/Zap"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+mouse_filter = 2
+color = Color(0, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Zap"]
+shape = SubResource("RectangleShape2D_ljykm")
+disabled = true
+
+[connection signal="body_entered" from="Player1/Zap" to="Player1" method="_on_hook_body_entered"]
+[connection signal="body_entered" from="Player2/Zap" to="Player1" method="_on_hook_body_entered"]
