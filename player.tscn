@@ -248,6 +248,8 @@ disabled = true
 [node name="Camera2D" type="Camera2D" parent="Player1"]
 position_smoothing_enabled = true
 
+[node name="Timer" type="Timer" parent="Player1"]
+
 [node name="Player2" type="CharacterBody2D" parent="."]
 script = ExtResource("3_sm2vo")
 metadata/player_num = 2
