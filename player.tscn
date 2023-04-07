@@ -1034,7 +1034,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_30b8p"]
-size = Vector2(128, 128)
+size = Vector2(18, 28.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljykm"]
 size = Vector2(16, 16)
@@ -1053,16 +1053,15 @@ sprite_frames = SubResource("SpriteFrames_qhv6n")
 animation = &"drgn-parade"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player1"]
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_30b8p")
 
 [node name="Line2D" type="Line2D" parent="Player1"]
-visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 default_color = Color(0, 0, 1, 1)
 
 [node name="Hook" type="Area2D" parent="Player1"]
-visible = false
 top_level = true
 
 [node name="ColorRect" type="ColorRect" parent="Player1/Hook"]
@@ -1086,9 +1085,10 @@ metadata/player_num = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2"]
 sprite_frames = SubResource("SpriteFrames_qhv6n")
-animation = &"mush-up"
+animation = &"snek-up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+position = Vector2(-1, 8.375)
 shape = SubResource("RectangleShape2D_30b8p")
 
 [connection signal="body_entered" from="Player1/Hook" to="Player1" method="_on_hook_body_entered"]
