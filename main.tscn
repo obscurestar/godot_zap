@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://yqnil3qrta3x"]
+
+[ext_resource type="PackedScene" uid="uid://bbulo0u4io7rw" path="res://player.tscn" id="1_e7sxr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_juh6x"]
+size = Vector2(20, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pphgo"]
+size = Vector2(600, 20)
+
+[node name="Test" type="Node2D"]
+position = Vector2(644, 320)
+
+[node name="Player" parent="." instance=ExtResource("1_e7sxr")]
+
+[node name="VWall" type="StaticBody2D" parent="."]
+position = Vector2(-960, -504)
+
+[node name="ColorRect" type="ColorRect" parent="VWall"]
+offset_left = -10.0
+offset_top = -300.0
+offset_right = 10.0
+offset_bottom = 300.0
+mouse_filter = 2
+color = Color(1, 1, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VWall"]
+shape = SubResource("RectangleShape2D_juh6x")
+
+[node name="HWall" type="StaticBody2D" parent="."]
+position = Vector2(-427, -171)
+
+[node name="ColorRect" type="ColorRect" parent="HWall"]
+offset_left = -300.0
+offset_top = -10.0
+offset_right = 300.0
+offset_bottom = 10.0
+mouse_filter = 2
+color = Color(1, 1, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HWall"]
+shape = SubResource("RectangleShape2D_pphgo")
