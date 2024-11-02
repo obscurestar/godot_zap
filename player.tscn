@@ -1,9 +1,9 @@
 [gd_scene load_steps=128 format=3 uid="uid://bbulo0u4io7rw"]
 
-[ext_resource type="Script" path="res://player1.gd" id="1_swrll"]
 [ext_resource type="Texture2D" uid="uid://b32ngbbrv1jst" path="res://res/animations/multisheet.png" id="2_ofms2"]
 [ext_resource type="Texture2D" uid="uid://t1kg4jdqlhki" path="res://res/animations/dragon_girl.png" id="2_rht2r"]
-[ext_resource type="Script" path="res://player2.gd" id="3_sm2vo"]
+[ext_resource type="Script" path="res://player1.gd" id="3_sm2vo"]
+[ext_resource type="Script" path="res://player2.gd" id="4_1c5o7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kecnl"]
 atlas = ExtResource("2_ofms2")
@@ -1046,7 +1046,7 @@ metadata/TESTING = true
 position = Vector2(-176, -2)
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_swrll")
+script = ExtResource("3_sm2vo")
 metadata/player_num = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player1"]
@@ -1086,7 +1086,7 @@ position_smoothing_enabled = true
 
 [node name="Player2" type="CharacterBody2D" parent="."]
 position = Vector2(-176, -2)
-script = ExtResource("3_sm2vo")
+script = ExtResource("4_1c5o7")
 metadata/player_num = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2"]
