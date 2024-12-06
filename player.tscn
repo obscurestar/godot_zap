@@ -1,9 +1,9 @@
 [gd_scene load_steps=128 format=3 uid="uid://bbulo0u4io7rw"]
 
-[ext_resource type="Script" path="res://player1.gd" id="1_swrll"]
 [ext_resource type="Texture2D" uid="uid://b32ngbbrv1jst" path="res://res/animations/multisheet.png" id="2_ofms2"]
 [ext_resource type="Texture2D" uid="uid://t1kg4jdqlhki" path="res://res/animations/dragon_girl.png" id="2_rht2r"]
-[ext_resource type="Script" path="res://player2.gd" id="3_sm2vo"]
+[ext_resource type="Script" path="res://player1.gd" id="3_sm2vo"]
+[ext_resource type="Script" path="res://player2.gd" id="4_1c5o7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kecnl"]
 atlas = ExtResource("2_ofms2")
@@ -1039,13 +1039,14 @@ size = Vector2(18, 28.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljykm"]
 size = Vector2(16, 16)
 
-[node name="Node" type="Node"]
+[node name="Main" type="Node"]
 metadata/TESTING = true
 
 [node name="Player1" type="CharacterBody2D" parent="."]
+position = Vector2(-176, -2)
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_swrll")
+script = ExtResource("3_sm2vo")
 metadata/player_num = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player1"]
@@ -1063,6 +1064,7 @@ default_color = Color(0, 0, 1, 1)
 
 [node name="Zap" type="Area2D" parent="Player1"]
 top_level = true
+position = Vector2(870, 272)
 
 [node name="ColorRect" type="ColorRect" parent="Player1/Zap"]
 offset_left = -8.0
@@ -1071,6 +1073,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 mouse_filter = 2
 color = Color(0, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/Zap"]
 shape = SubResource("RectangleShape2D_ljykm")
@@ -1082,7 +1085,8 @@ position_smoothing_enabled = true
 [node name="Timer" type="Timer" parent="Player1"]
 
 [node name="Player2" type="CharacterBody2D" parent="."]
-script = ExtResource("3_sm2vo")
+position = Vector2(-176, -2)
+script = ExtResource("4_1c5o7")
 metadata/player_num = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2"]
@@ -1095,6 +1099,7 @@ shape = SubResource("RectangleShape2D_30b8p")
 
 [node name="Zap" type="Area2D" parent="Player2"]
 top_level = true
+position = Vector2(870, 272)
 
 [node name="ColorRect" type="ColorRect" parent="Player2/Zap"]
 offset_left = -8.0
@@ -1103,6 +1108,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 mouse_filter = 2
 color = Color(0, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Zap"]
 shape = SubResource("RectangleShape2D_ljykm")
